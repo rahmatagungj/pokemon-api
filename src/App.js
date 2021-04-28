@@ -1,20 +1,27 @@
 import './App.css';
 import React from "react";
-import MediaCard from "./Components/Card";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Details from "./Components/Details";
+
 
 const {useEffect,useState} = React;
 
 function App() {
-  const [datas,setDatas] = useState({})
   const [pokemons, setPokemons] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect( async () => {
+    setLoading(true)
     await fetch("https://pokeapi.co/api/v2/pokemon?limit=100").then(res => {
        if (res.status === 200) return res.json();
     }).then(resJson => {
-      console.log(resJson);
-      setPokemons([{data : resJson.results}])
-      setDatas({...resJson})
+      setPokemons(resJson.results)
+      setLoading(false)
     })
     return () => {
       console.log("cleaning up ...")
@@ -22,12 +29,26 @@ function App() {
   }, [])
 
   return (
+    <>
+    <Router>
+    <Switch>
     <div className="App">
       {
-      pokemons.map((r,idx) => {
-        console.log(r.data[idx].name);
-      })}
-    </div>
+        !loading ?
+        pokemons.map((r,idx) => (
+          <h2 key={idx} computedMatch={undefined}>
+            <Link to={"/" + idx}>{r.name}</Link>  
+            <Route path={"/" + idx}>
+              <Details id={idx}/>
+            </Route>
+          </h2>
+          )) 
+        : "loading ..."
+      }
+      </div>
+      </Switch>
+      </Router>
+    </>
   );
 }
 
