@@ -1,12 +1,14 @@
 import React from 'react'
-
+import styled from 'styled-components'
 const Cards = ({name,images}) => {
     return (
-        <div>
-            <img src={images} alt="" srcset=""/>
-            <h2>{name}</h2>
-        </div>
+        <Smooth>
+            <img src={images} alt={name}/>
+        </Smooth>
     )
 }
 
+const Smooth = styled.div`
+transition: all 0.5s ease;
+`
 export default Cards

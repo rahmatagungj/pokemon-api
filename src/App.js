@@ -7,7 +7,7 @@ import {
   Link
 } from "react-router-dom";
 import Details from "./Components/Details";
-
+import styled from "styled-components";
 
 const {useEffect,useState} = React;
 
@@ -32,24 +32,34 @@ function App() {
     <>
     <Router>
     <Switch>
-    <div className="App">
+    <Apps>
       {
         !loading ?
         pokemons.map((r,idx) => (
-          <h2 key={idx} computedMatch={undefined}>
+          <H2 key={idx} computedMatch={undefined}>
             <Link to={"/" + idx}>{r.name}</Link>  
             <Route path={"/" + idx}>
               <Details id={idx}/>
             </Route>
-          </h2>
+          </H2>
           )) 
         : "loading ..."
       }
-      </div>
+      </Apps>
       </Switch>
       </Router>
     </>
   );
 }
+
+const Apps = styled.div`
+display: flex;
+flex-wrap: wrap;
+text-decoration: none;
+`
+
+const H2 = styled.h2`
+padding: 10px;
+`
 
 export default App;
