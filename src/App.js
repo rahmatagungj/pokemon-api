@@ -15,9 +15,9 @@ function App() {
   const [pokemons, setPokemons] = useState([])
   const [loading, setLoading] = useState(false)
 
-  useEffect( async () => {
+  useEffect(() => {
     setLoading(true)
-    await fetch("https://pokeapi.co/api/v2/pokemon?limit=100").then(res => {
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=100").then(res => {
        if (res.status === 200) return res.json();
     }).then(resJson => {
       setPokemons(resJson.results)
@@ -36,14 +36,16 @@ function App() {
       {
         !loading ?
         pokemons.map((r,idx) => (
-          <H2 key={idx} computedMatch={undefined}>
-            <LINK to={"/" + idx}>{r.name}</LINK>  
-            <Route path={"/" + idx}>
-              <Details id={idx}/>
+          <React.Fragment key={idx+1}>
+            <Route path="/" exact>
+              <LINK to={"/" + (idx +1)}>{r.name}</LINK>  
             </Route>
-          </H2>
+              <Route path={"/" + (idx +1)} exact>
+                <Details id={idx+1}/>
+              </Route>
+            </React.Fragment>
           )) 
-        : "loading ..."
+        : <H3>Memuat Data ...</H3>
       }
       </Apps>
       </Switch>
@@ -65,13 +67,22 @@ background-color: white;
 padding: 10px;
 border-radius: 10px;
 transition: all 0.2s ease;
+margin: 10px;
 &:hover {
-  transform: scale(2)
+  transform: scale(1.08)
 }
 `
 
-const H2 = styled.h2`
-padding: 10px;
+const H3 = styled.h3`
+ color: white;
+ font-size: 1.2em;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ text-align: center;
+ align-items: center;
+ margin: 0px auto;
+ height: 80vh;
 `
 
 export default App;

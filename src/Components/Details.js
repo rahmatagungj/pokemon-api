@@ -1,6 +1,6 @@
 import React from 'react'
 import Cards from "./Cards"
-
+import styled from 'styled-components'
 const {useState, useEffect} = React;
 
 const Details = ({id}) => {
@@ -9,7 +9,7 @@ const Details = ({id}) => {
 
     const fetchDetails = async (id) => {
         setShow(false)
-        await fetch(`https://pokeapi.co/api/v2/pokemon/${id+1}`).then(res => {
+        await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then(res => {
            if (res.status === 200) return res.json();
         }).then(resJson => {
           setResults({...resJson})
@@ -17,21 +17,34 @@ const Details = ({id}) => {
         })
       }
 
-    useEffect(async () => {
-        await fetchDetails(id)
+    useEffect(() => {
+        fetchDetails(id)
         return () => {
             console.log("clean up details ..");
         }
     }, [id])
 
     return (
-        <div>
+        <Center>
             {show ? 
-           <Cards images={results.sprites.front_default} name={results.name}/>
-            : ""
+           <Cards weight={results.weight} images={results.sprites.front_default} name={results.name}/>
+            : <H3>Memuat Data ...</H3>
             }
-        </div>
+        </Center>
     )
 }
 
+const Center = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+margin: auto auto;
+height: 80vh;
+`
+
+const H3 = styled.h3`
+ color: white;
+ font-size: 1.2em;
+`
 export default Details
