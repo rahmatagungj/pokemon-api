@@ -1,8 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import {Helmet} from 'react-helmet'
 const Cards = ({name,images,weight}) => {
     return (
         <Smooth>
+            <Helmet>
+            <title>Pokemon {name} - Rahmat Agung Julians</title>
+            </Helmet>
             <IMG src={images} alt={name}/>
             <H2>{name}</H2>
             <p>Berat : {weight} kg</p>

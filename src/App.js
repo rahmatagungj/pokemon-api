@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Details from "./Components/Details";
 import styled from "styled-components";
-
+import {Helmet} from 'react-helmet'
 const {useEffect,useState} = React;
 
 function App() {
@@ -27,9 +27,12 @@ function App() {
       console.log("cleaning up ...")
     }
   }, [])
-
+  
   return (
     <>
+    <Helmet>
+      <title>Pokemon API - Rahmat Agung Julians</title>
+    </Helmet>
     <Router>
     <Switch>
     <Apps>

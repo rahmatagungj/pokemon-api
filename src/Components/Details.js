@@ -3,6 +3,7 @@ import Cards from "./Cards"
 import styled from 'styled-components'
 const {useState, useEffect} = React;
 
+
 const Details = ({id}) => {
     const [results,setResults] = useState({})
     const [show,setShow] = useState(false)
@@ -25,12 +26,14 @@ const Details = ({id}) => {
     }, [id])
 
     return (
+        <>
         <Center>
             {show ? 
            <Cards weight={results.weight} images={results.sprites.front_default} name={results.name}/>
             : <H3>Memuat Data ...</H3>
             }
         </Center>
+        </>
     )
 }
 
