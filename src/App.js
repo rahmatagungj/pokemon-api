@@ -37,7 +37,7 @@ function App() {
         !loading ?
         pokemons.map((r,idx) => (
           <H2 key={idx} computedMatch={undefined}>
-            <Link to={"/" + idx}>{r.name}</Link>  
+            <LINK to={"/" + idx}>{r.name}</LINK>  
             <Route path={"/" + idx}>
               <Details id={idx}/>
             </Route>
@@ -56,6 +56,18 @@ const Apps = styled.div`
 display: flex;
 flex-wrap: wrap;
 text-decoration: none;
+`
+
+const LINK = styled(Link)`
+text-decoration: none;
+color: #575757;
+background-color: white;
+padding: 10px;
+border-radius: 10px;
+transition: all 0.2s ease;
+&:hover {
+  transform: scale(2)
+}
 `
 
 const H2 = styled.h2`
